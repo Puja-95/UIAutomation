@@ -58,6 +58,12 @@ String country= Arrays.toString(ExcelUtils.provideDataCountryName());
         return selectCountry.getText();
     }
 
+    public String ExpectedCountry(){
+        String countr = country.replaceAll("[\\[\\]]", "");
+        return countr;
+    }
+
+
     public void SelectedCountry() throws IOException {
       //  String country= Arrays.toString(ExcelUtils.provideDataCountryName());
         WebElement selectCountry=driver.findElement(By.xpath("//span[text()='"+countr+"']"));
@@ -120,7 +126,8 @@ String country= Arrays.toString(ExcelUtils.provideDataCountryName());
         confirmButton.click();
     }
 
-    public String dashboardPage(){
-        return logoutbutton.getText();
+    public boolean dashboardPage(){
+        boolean logoutIsVisible=logoutbutton.isDisplayed();
+        return logoutIsVisible;
     }
 }

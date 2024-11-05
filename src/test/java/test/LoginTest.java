@@ -36,7 +36,7 @@ public class LoginTest {
     @Test(dataProvider = "excelData", dataProviderClass = ExcelUtils.class, priority = 1)
     public void loginTest(String environment) throws InterruptedException, IOException {
 
-ExtentManager.createTest("Environement selected successfully");
+
         String baseUrl;
         if ("Dev".equalsIgnoreCase(environment)) {
             baseUrl = "https://dt-admin-dev.ldsvcplatform.com/en/login";
@@ -45,7 +45,7 @@ ExtentManager.createTest("Environement selected successfully");
         } else {
             throw new IllegalArgumentException("Invalid environment: " + environment);
         }
-
+        ExtentManager.createTest("Environement selected successfully");
         if(environment.equals("Dev")){
             ExtentManager.getTest().pass("Environement selected successfully :"+ environment);
         } else if (environment.equals("Preprod")) {
@@ -64,10 +64,11 @@ ExtentManager.createTest("Environement selected successfully");
 
     @Test(priority=2, dataProvider = "countryData", dataProviderClass = ExcelUtils.class)
     public void selectCountryTest(String country) throws IOException {
-        ExtentManager.createTest("Country selected successfully");
+
         loginPage.SelectCountry();
         String countrySelected=loginPage.SelectCountry();
-        if(countrySelected.equals("Romania")){
+        ExtentManager.createTest("Country selected successfully");
+        if(countrySelected.equals(loginPage.ExpectedCountry())){
             ExtentManager.getTest().pass("Correct country selected :"+countrySelected);
         }else{
             ExtentManager.getTest().fail("Correct country not selected :"+countrySelected);
@@ -81,8 +82,9 @@ ExtentManager.createTest("Environement selected successfully");
 
       @Test(dataProvider = "excelDataUsername", dataProviderClass = ExcelUtils.class, priority = 3)
     public void loginUser(String username){
-ExtentManager.createTest("Entered username successfully");
+
 boolean enteredPassword=loginPage.loginButton();
+          ExtentManager.createTest("Entered username successfully");
 if(enteredPassword==true){
     ExtentManager.getTest().pass("Username entered successfully "+enteredPassword);
 
@@ -101,9 +103,10 @@ if(enteredPassword==true){
     @Test(dataProvider = "excelDataPassword", dataProviderClass = ExcelUtils.class, priority = 4)
     public void loginByPasswordEnabled(String password){
         loginPage.adminPassword(password);
-        ExtentManager.createTest("Test entered password successfully");
+
 
         boolean enteredPassword=loginPage.loginButtonEnabaled();
+        ExtentManager.createTest("Test entered password successfully");
         if(enteredPassword==true){
             ExtentManager.getTest().pass("Password eneterd successfully :"+ enteredPassword);
         }else{
@@ -116,8 +119,9 @@ if(enteredPassword==true){
   @Test(priority = 5)
     public void selectLanguage(){
         loginPage.SelectLanguage();
-      ExtentManager.createTest("Test Pay as you go mode Selection");
+
       String payAsYouGoSelected=loginPage.optionSelected();
+      ExtentManager.createTest("Test Pay as you go mode Selection");
       if(payAsYouGoSelected.equals("Rates")){
           ExtentManager.getTest().pass("Pay as you go selected successfully :"+payAsYouGoSelected);
       }else{
@@ -143,14 +147,14 @@ if(enteredPassword==true){
 
     @Test(priority = 7)
     public void selectPayasyougo(){
-        ExtentManager.createTest("Validate Successful Login");
+
         loginPage.selectPayasyougo();
-        String dashboardVerified=loginPage.dashboardPage();
-        if(dashboardVerified.equals("Log out")){
+        ExtentManager.createTest("Validate Successful Login");
+        boolean dashboardVerified=loginPage.dashboardPage();
+        if(dashboardVerified==true){
             ExtentManager.getTest().pass("Login was successful: " + dashboardVerified);
         }else {
-            ExtentManager.getTest().fail("Login failed. Expected message: " + loginPage.dashboardPage());
-
+            ExtentManager.getTest().fail("Login failed. Expected message: " +dashboardVerified);
         }
         }
 
