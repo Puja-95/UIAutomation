@@ -8,16 +8,19 @@ import org.openqa.selenium.support.FindBy;
 
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.ExcelUtils;
 import utils.WaitUtil;
 
+import java.io.IOException;
 import java.time.Duration;
+import java.util.Arrays;
 
 public class LoginPage extends BasePage {
 
     private WaitUtil wait;
 
-    @FindBy(xpath="//span[text()='Austria']")
-     private WebElement SelectCountry;
+String country= Arrays.toString(ExcelUtils.provideDataCountryName());
+    String countr = country.replaceAll("[\\[\\]]", "");
 
     @FindBy(xpath="//input[@placeholder='Email address']")
     private WebElement usernameField;
@@ -42,25 +45,23 @@ public class LoginPage extends BasePage {
     @FindBy(xpath="//p[text()='Log out']")
     private WebElement logoutbutton;
 
-    public LoginPage(WebDriver driver) {
+    public LoginPage(WebDriver driver) throws IOException {
         super(driver);
         this.wait = new WaitUtil(driver, Duration.ofSeconds(5), Duration.ofSeconds(2));
     }
 
-    public String SelectCountry() throws InterruptedException {
+    public String SelectCountry()  {
+        String countr = country.replaceAll("[\\[\\]]", "");
 
-        wait.scrollByPixels(200);
-       // Actions actions=new Actions(driver);
+        WebElement selectCountry=driver.findElement(By.xpath("//span[text()='"+countr+"']"));
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
-        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[text()='Austria']")));
-       // System.out.println(element.getText());
-
-        return element.getText();
+        return selectCountry.getText();
     }
 
-    public void SelectedCountry(){
-        SelectCountry.click();
+    public void SelectedCountry() throws IOException {
+      //  String country= Arrays.toString(ExcelUtils.provideDataCountryName());
+        WebElement selectCountry=driver.findElement(By.xpath("//span[text()='"+countr+"']"));
+        selectCountry.click();
     }
 
     public void SelectLanguage(){
@@ -68,7 +69,7 @@ public class LoginPage extends BasePage {
     }
 
     public String optionSelected(){
-        System.out.println(selectRates.getText());
+
         return selectRates.getText();
     }
 
@@ -91,10 +92,7 @@ public class LoginPage extends BasePage {
      wait.scrollByPixels(200);
 
         usernameField.sendKeys(username);
-
-       // passwordField.sendKeys(password);
-
-       // return loginButton.isEnabled();
+        
     }
 
     public void adminPassword(String password){
@@ -103,7 +101,7 @@ public class LoginPage extends BasePage {
     public boolean loginButton(){
 
         wait.scrollByPixels(100);
-        System.out.println(loginButton.isEnabled());
+
         return loginButton.isEnabled();
     }
 
