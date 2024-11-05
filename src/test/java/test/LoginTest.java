@@ -1,25 +1,23 @@
 package test;
 
-import com.aventstack.extentreports.ExtentReports;
+
 import org.testng.Assert;
-import org.testng.ITestContext;
-import org.testng.ITestResult;
+
 import org.testng.annotations.*;
 import pages.LoginPage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import utils.ExcelUtils;
-import utils.TestListener;
+import utils.ExtentManager;
+
 
 
 import java.io.IOException;
 
-@Listeners(TestListener.class)
+
 public class LoginTest {
-    private ExtentReports extent;
 
     private WebDriver driver;
-
 
     public LoginPage loginPage;
 
@@ -60,8 +58,8 @@ public class LoginTest {
     public void selectCountryTest(String country) throws IOException {
 
         loginPage.SelectCountry();
-Assert.assertEquals(country, loginPage.SelectCountry());
-loginPage.SelectedCountry();
+        Assert.assertEquals(country, loginPage.SelectCountry());
+        loginPage.SelectedCountry();
 
     }
 
@@ -101,22 +99,23 @@ loginPage.SelectedCountry();
 
     @Test(priority = 7)
     public void selectPayasyougo(){
+        ExtentManager.createTest("Validate Successful Login");
         loginPage.selectPayasyougo();
-        Assert.assertEquals("Log out", loginPage.dashboardPage(),"Chceking logout on Dashboard screen");
-    }
+        String dashboardVerified=loginPage.dashboardPage();
+        if(dashboardVerified.equals("Log out")){
+            ExtentManager.getTest().pass("Login was successful: " + dashboardVerified);
+        }else {
+            ExtentManager.getTest().fail("Login failed. Expected message: " + loginPage.dashboardPage());
 
-    @AfterMethod
-    public void results(ITestResult result) {
-        if (result.getStatus() == ITestResult.FAILURE) {
-            System.out.println("Test failed: " + result.getName());
-            // Add custom teardown logic for failed tests
-        } else if (result.getStatus() == ITestResult.SUCCESS) {
-            System.out.println("Test passed: " + result.getName());
-            // Add custom teardown logic for passed tests
         }
-    }
+        }
+
+
     @AfterClass
     public void teardown() {
+        if (driver != null) {
             driver.quit();
         }
+        ExtentManager.flush();
+    }
 }

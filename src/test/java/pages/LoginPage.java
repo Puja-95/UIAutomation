@@ -1,15 +1,15 @@
 package pages;
 
-import basePage.BasePage;
+
+import BasePackage.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.ExcelUtils;
 import utils.WaitUtil;
+
 
 import java.io.IOException;
 import java.time.Duration;
