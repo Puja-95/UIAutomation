@@ -97,12 +97,8 @@ if(enteredPassword==true){
 }else{
     ExtentManager.getTest().fail("Username not entered "+enteredPassword);
 }
-
-
         loginPage.Adminlogin(username);
         loginPage.loginButtonClick();
-
-
     }
 
     @Test(dataProvider = "excelDataPassword", dataProviderClass = ExcelUtils.class, priority = 4)

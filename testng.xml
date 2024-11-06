@@ -8,6 +8,7 @@
     <test name="LoginTests">
         <classes>
             <class name="test.LoginTest"/>
+            <class name="test.UserManagementTest"/>
         </classes>
     </test>
 </suite>
