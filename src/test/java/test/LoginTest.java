@@ -68,7 +68,7 @@ public class LoginTest {
     }
 
     @Test(priority=2, dataProvider = "countryData", dataProviderClass = ExcelUtils.class)
-    public void selectCountryTest(String country) throws IOException {
+    public void selectCountryTest(String country) throws IOException, InterruptedException {
 
         loginPage.SelectCountry();
         String countrySelected=loginPage.SelectCountry();
@@ -162,7 +162,6 @@ if(enteredPassword==true){
             ExtentManager.getTest().fail("Login failed. Expected message: " +dashboardVerified);
         }
         }
-
 
     @AfterClass
     public void teardown() {

@@ -3,10 +3,13 @@ package pages;
 
 import BasePackage.BasePage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import utils.ExcelUtils;
 import utils.WaitUtil;
 
@@ -21,7 +24,7 @@ public class LoginPage extends BasePage {
 
 String country= Arrays.toString(ExcelUtils.provideDataCountryName());
     String countr = country.replaceAll("[\\[\\]]", "");
-
+    WebElement targetElement;
     @FindBy(xpath="//input[@placeholder='Email address']")
     private WebElement usernameField;
 
@@ -50,11 +53,24 @@ String country= Arrays.toString(ExcelUtils.provideDataCountryName());
         this.wait = new WaitUtil(driver, Duration.ofSeconds(5), Duration.ofSeconds(2));
     }
 
-    public String SelectCountry()  {
+    public String SelectCountry() throws InterruptedException {
+        Thread.sleep(3000);
+        wait.scrollByPixels(100);
         String countr = country.replaceAll("[\\[\\]]", "");
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        WebElement scrollableBox = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='_countryGrid_1b7ra_77 MuiBox-root css-0']/child::div")));
+
+       //WebElement scrollableBox = driver.findElement(By.xpath("//div[@class='_countryGrid_1b7ra_77 MuiBox-root css-0']/child::div"));
+        targetElement = driver.findElement(By.xpath("//span[text()='"+countr+"']"));
+
+        // Scroll until the target element is in view
+        while (!targetElement.isDisplayed()) {
+            // Scroll down inside the box by 250 pixels
+            js.executeScript("arguments[0].scrollTop += 250;", scrollableBox);
+        }
 
         WebElement selectCountry=driver.findElement(By.xpath("//span[text()='"+countr+"']"));
-
         return selectCountry.getText();
     }
 
@@ -66,8 +82,8 @@ String country= Arrays.toString(ExcelUtils.provideDataCountryName());
 
     public void SelectedCountry() throws IOException {
       //  String country= Arrays.toString(ExcelUtils.provideDataCountryName());
-        WebElement selectCountry=driver.findElement(By.xpath("//span[text()='"+countr+"']"));
-        selectCountry.click();
+       // WebElement selectCountry=driver.findElement(By.xpath("//span[text()='"+countr+"']"));
+        targetElement.click();
     }
 
     public void SelectLanguage(){
