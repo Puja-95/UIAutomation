@@ -1,10 +1,7 @@
 package pages;
 
 import BasePackage.BasePage;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import utils.ExcelUtils;
 import utils.WaitUtil;
@@ -45,6 +42,12 @@ public class UserManagementPage extends BasePage {
     @FindBy(xpath="//div[@role='combobox']")
     private WebElement selectRoleDropDown;
 
+    @FindBy(xpath = "//p[text()='Confirm user details']")
+    private WebElement confirmButton;
+
+    @FindBy(xpath="//p[text()='Back to dashboard']")
+    private WebElement backToDashboard;
+
   /*  @FindBy(xpath="//p[text()='"+addedRole+"']")
     private WebElement SelectedRole;*/
 
@@ -71,9 +74,14 @@ public class UserManagementPage extends BasePage {
     }
 
     public boolean confirmDetailsButtonDisabled(){return confirmDetailsbuttonDisabled.isEnabled();}
-    public void addMail(String mailId){enterMail.clear();enterMail.sendKeys(mailId);}
-    public void addFirstName(String firstName){enterFirstName.clear();enterFirstName.sendKeys(firstName);}
-    public void addLastName(String lastName){enterLastName.clear();enterLastName.sendKeys(lastName);}
+    public void addMail(String mailId) throws InterruptedException {enterMail.clear();enterMail.sendKeys(mailId+"1");
+        Thread.sleep(2000);
+    enterMail.sendKeys(Keys.BACK_SPACE);
+    Thread.sleep(2000);}
+    public void addFirstName(String firstName){enterFirstName.clear();enterFirstName.sendKeys(firstName+"1");
+    enterFirstName.sendKeys(Keys.BACK_SPACE);}
+    public void addLastName(String lastName){enterLastName.clear();enterLastName.sendKeys(lastName+"1");
+    enterLastName.sendKeys(Keys.BACK_SPACE);}
     public void clickRatesButton(){selectRatesButton.click();}
 
     public void selectRole() throws InterruptedException {
@@ -83,10 +91,29 @@ public class UserManagementPage extends BasePage {
         while (!selectRoleDropDown.isDisplayed()) {
             js.executeScript("arguments[0].scrollTop += 100;");
         }
+
         selectRoleDropDown.click();
 
         Thread.sleep(5000);
         WebElement selectRole=driver.findElement(By.xpath("//p[text()='"+addedRole+"']"));
         selectRole.click();
+    }
+
+    public boolean confirmClickEnabled(){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        while (!confirmButton.isDisplayed()) {
+            js.executeScript("arguments[0].scrollTop += 100;");
+        }
+
+        return confirmButton.isEnabled();
+    }
+
+    public void confirmClick(){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        while (!confirmButton.isDisplayed()) {
+            js.executeScript("arguments[0].scrollTop += 100;");
+        }
+        confirmButton.click();
+        backToDashboard.click();
     }
 }

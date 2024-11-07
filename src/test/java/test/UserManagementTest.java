@@ -107,7 +107,7 @@ public class UserManagementTest {
     }*/
 
     @Test(priority = 7, dataProvider = "enterMailId", dataProviderClass = ExcelUtils.class)
-    public void enterMailId(String mailid) {
+    public void enterMailId(String mailid) throws InterruptedException {
 
     userManagementPage.addMail(mailid);
     boolean confirmDetailsButton=userManagementPage.confirmDetailsButtonDisabled();
@@ -148,13 +148,39 @@ public class UserManagementTest {
     @Test(priority = 10)
     public void ratesselection(){
         userManagementPage.clickRatesButton();
-
+        boolean confirmDetailsButton=userManagementPage.confirmDetailsButtonDisabled();
+        ExtentManager.createTest("Confirm details button is disbaled");
+        if(confirmDetailsButton==true){
+            ExtentManager.getTest().pass("button is disabled :"+confirmDetailsButton);
+        }else{
+            ExtentManager.getTest().fail("button is disabled :"+confirmDetailsButton);
+        }
     }
 
     @Test(priority = 11, dataProvider = "role", dataProviderClass = ExcelUtils.class)
     public void selectRole(String role) throws InterruptedException {
         userManagementPage.selectRole();
+        boolean confirmDetailsButton=userManagementPage.confirmClickEnabled();
+        ExtentManager.createTest("Confirm details button is disbaled");
+        if(confirmDetailsButton==true){
+            ExtentManager.getTest().pass("button is disabled :"+confirmDetailsButton);
+        }else{
+            ExtentManager.getTest().fail("button is disabled :"+confirmDetailsButton);
+        }
+    }
 
+    @Test(priority = 12)
+    public void confirmandClick(){
+
+        boolean confirmDetailsButton=userManagementPage.confirmClickEnabled();
+        ExtentManager.createTest("Confirm details button is disbaled");
+        if(confirmDetailsButton==false){
+            ExtentManager.getTest().pass("button is disabled :"+confirmDetailsButton);
+        }else{
+            ExtentManager.getTest().fail("button is disabled :"+confirmDetailsButton);
+        }
+
+        userManagementPage.confirmClick();
     }
 
     @AfterClass
