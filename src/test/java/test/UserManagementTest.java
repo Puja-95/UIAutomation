@@ -101,12 +101,66 @@ public class UserManagementTest {
         userManagementPage.addingUserButtonClick();
     }
 
+  /*  @Test(dataProvider = "excelDataPassword", dataProviderClass = ExcelUtils.class, priority = 7)
+    public void enterUserDetails(){
 
+    }*/
+
+    @Test(priority = 7, dataProvider = "enterMailId", dataProviderClass = ExcelUtils.class)
+    public void enterMailId(String mailid) {
+
+    userManagementPage.addMail(mailid);
+    boolean confirmDetailsButton=userManagementPage.confirmDetailsButtonDisabled();
+        ExtentManager.createTest("Confirm details button is disbaled");
+        if(confirmDetailsButton==true){
+            ExtentManager.getTest().pass("button is disabled :"+confirmDetailsButton);
+        }else{
+            ExtentManager.getTest().fail("button is disabled :"+confirmDetailsButton);
+        }
+
+    }
+    @Test(priority = 8, dataProvider = "enterFirstName", dataProviderClass = ExcelUtils.class)
+    public void enterFirstName(String firstName) {
+    userManagementPage.addFirstName(firstName);
+        boolean confirmDetailsButton=userManagementPage.confirmDetailsButtonDisabled();
+        ExtentManager.createTest("Confirm details button is disbaled");
+        if(confirmDetailsButton==true){
+            ExtentManager.getTest().pass("button is disabled :"+confirmDetailsButton);
+        }else{
+            ExtentManager.getTest().fail("button is disabled :"+confirmDetailsButton);
+        }
+
+
+    }
+
+    @Test(priority = 9, dataProvider = "enterSecondName", dataProviderClass = ExcelUtils.class)
+    public void enterLastName(String lastName) {
+        userManagementPage.addLastName(lastName);
+        boolean confirmDetailsButton=userManagementPage.confirmDetailsButtonDisabled();
+        ExtentManager.createTest("Confirm details button is disbaled");
+        if(confirmDetailsButton==true){
+            ExtentManager.getTest().pass("button is disabled :"+confirmDetailsButton);
+        }else{
+            ExtentManager.getTest().fail("button is disabled :"+confirmDetailsButton);
+        }
+    }
+
+    @Test(priority = 10)
+    public void ratesselection(){
+        userManagementPage.clickRatesButton();
+
+    }
+
+    @Test(priority = 11, dataProvider = "role", dataProviderClass = ExcelUtils.class)
+    public void selectRole(String role) throws InterruptedException {
+        userManagementPage.selectRole();
+
+    }
 
     @AfterClass
     public void teardown() {
         if (driver != null) {
-            driver.quit();
+          //  driver.quit();
         }
         ExtentManager.flush();
     }
