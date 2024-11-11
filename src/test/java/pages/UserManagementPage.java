@@ -2,10 +2,12 @@ package pages;
 
 import BasePackage.BasePage;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import utils.ExcelUtils;
 import utils.WaitUtil;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.Arrays;
@@ -90,7 +92,9 @@ public class UserManagementPage extends BasePage {
         }return addUserbuttonElement.isDisplayed();
     }
 
-    public void addingUserButtonClick(){
+    public void addingUserButtonClick() throws InterruptedException {
+Thread.sleep(2000);
+      wait.scrollToTop();
         addUserbuttonElement.click();
     }
 

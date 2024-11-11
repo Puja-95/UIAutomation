@@ -88,7 +88,7 @@ public class UserManagementTest {
     }
 
     @Test(priority=6)
-    public void AddUserButton(){
+    public void AddUserButton() throws InterruptedException {
         boolean adduserbuttonDisplay=userManagementPage.addUserButtonIsDisplayed(); ExtentManager.createTest("Add user button clicked successfully");
         ExtentManager.createTest("Add user button clicked successfully");
         if(adduserbuttonDisplay==true){
