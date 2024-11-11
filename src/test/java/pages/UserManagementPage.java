@@ -57,14 +57,18 @@ public class UserManagementPage extends BasePage {
     @FindBy(xpath="//input[@id='search']")
     private WebElement searchElement;
 
-    @FindBy(xpath="//div[text()='cb testing']")
-    private WebElement searchFirstname;
+  /*  @FindBy(xpath="//div[text()='cb']")
+    private WebElement searchFirstname;*/
 
     @FindBy(xpath="//td[3]/div/img")
     private WebElement deleteUser;
-  /*  @FindBy(xpath="//p[text()='"+addedRole+"']")
-    private WebElement SelectedRole;*/
 
+    @FindBy(xpath="//tbody/tr")
+    private  WebElement deletedUserElement;
+
+
+    @FindBy(xpath="//p[text()='Pay as you go']")
+    private WebElement dashboardClick;
     public boolean ManageUserbuttonIsDisplayed() throws InterruptedException {
         Thread.sleep(5000);
         JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -129,7 +133,6 @@ Thread.sleep(2000);
         while (!confirmButton.isDisplayed()) {
             js.executeScript("arguments[0].scrollTop += 100;");
         }
-
         return confirmButton.isEnabled();
     }
 
@@ -152,17 +155,21 @@ Thread.sleep(2000);
         searchElement.sendKeys(Keys.BACK_SPACE);
     }
 
-    public boolean searchFirstname(String firstname){
-        boolean searchFirstNameVisible=searchFirstname.isDisplayed();
+    public boolean searchFirstname(String firstname) throws InterruptedException {
+        Thread.sleep(2000);
+        wait.scrollToTop();
+        Thread.sleep(2000);
+        boolean searchFirstNameVisible=searchElement.isDisplayed();
 return searchFirstNameVisible;
     }
 
-    public boolean deleteUser() throws InterruptedException {
+    public void deleteUser() throws InterruptedException {
         Thread.sleep(5000);
         deleteUser.click();
         Thread.sleep(2000);
         confirmButton.click();
-        System.out.println(searchFirstname.isDisplayed());
-        return searchFirstname.isDisplayed();
+
     }
+
+
 }

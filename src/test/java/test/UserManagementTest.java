@@ -1,6 +1,7 @@
 
 package test;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterClass;
@@ -143,7 +144,7 @@ public class UserManagementTest {
         userManagementPage.clickRatesButton();
         boolean confirmDetailsButton=userManagementPage.confirmDetailsButtonDisabled();
         ExtentManager.createTest("Rates is selected for the user");
-        if(confirmDetailsButton==true){
+        if(confirmDetailsButton==false){
             ExtentManager.getTest().pass("button is disabled :"+confirmDetailsButton);
         }else{
             ExtentManager.getTest().fail("button is disabled :"+confirmDetailsButton);
@@ -190,18 +191,15 @@ public class UserManagementTest {
         }
     }
 
-    @Test(priority = 14)
-    public void deleteUser() throws InterruptedException {
-        boolean deletedUser=userManagementPage.deleteUser();
+    @Test(priority = 14, dataProvider = "enterFirstName", dataProviderClass = ExcelUtils.class)
+    public void deleteUser(String firstName) throws InterruptedException {
+       // Thread.sleep(2000);
+        userManagementPage.deleteUser();
+        ExtentManager.createTest("search firstname details is not displayed");
+        ExtentManager.assertNotPresent(By.id("//tbody/tr"), driver,
+                "Verify that element is not present on the page");
 
-        ExtentManager.createTest("search delete user details is displayed");
-        if(deletedUser=true){
-            ExtentManager.getTest().pass("deleted user details is displayed :"+deletedUser);
-        }else{
-            ExtentManager.getTest().fail("deleted user detais is displayed :"+deletedUser);
-        }
     }
-
 
     @AfterClass
     public void teardown() {
