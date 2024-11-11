@@ -28,7 +28,6 @@ public class UserManagementTest {
     @Test(dataProvider = "excelData", dataProviderClass = ExcelUtils.class, priority = 1)
     public void loginTest(String environment) throws InterruptedException, IOException {
 
-
         String baseUrl;
         if ("Dev".equalsIgnoreCase(environment)) {
             baseUrl = "https://dt-admin-dev.ldsvcplatform.com/en/login";
@@ -101,17 +100,13 @@ public class UserManagementTest {
         userManagementPage.addingUserButtonClick();
     }
 
-  /*  @Test(dataProvider = "excelDataPassword", dataProviderClass = ExcelUtils.class, priority = 7)
-    public void enterUserDetails(){
-
-    }*/
 
     @Test(priority = 7, dataProvider = "enterMailId", dataProviderClass = ExcelUtils.class)
     public void enterMailId(String mailid) throws InterruptedException {
 
     userManagementPage.addMail(mailid);
     boolean confirmDetailsButton=userManagementPage.confirmDetailsButtonDisabled();
-        ExtentManager.createTest("Confirm details button is disbaled");
+        ExtentManager.createTest("enter email id is entered");
         if(confirmDetailsButton==true){
             ExtentManager.getTest().pass("button is disabled :"+confirmDetailsButton);
         }else{
@@ -123,21 +118,19 @@ public class UserManagementTest {
     public void enterFirstName(String firstName) {
     userManagementPage.addFirstName(firstName);
         boolean confirmDetailsButton=userManagementPage.confirmDetailsButtonDisabled();
-        ExtentManager.createTest("Confirm details button is disbaled");
+        ExtentManager.createTest("firstname is entered");
         if(confirmDetailsButton==true){
             ExtentManager.getTest().pass("button is disabled :"+confirmDetailsButton);
         }else{
             ExtentManager.getTest().fail("button is disabled :"+confirmDetailsButton);
         }
-
-
     }
 
     @Test(priority = 9, dataProvider = "enterSecondName", dataProviderClass = ExcelUtils.class)
     public void enterLastName(String lastName) {
         userManagementPage.addLastName(lastName);
         boolean confirmDetailsButton=userManagementPage.confirmDetailsButtonDisabled();
-        ExtentManager.createTest("Confirm details button is disbaled");
+        ExtentManager.createTest("Second name is entered");
         if(confirmDetailsButton==true){
             ExtentManager.getTest().pass("button is disabled :"+confirmDetailsButton);
         }else{
@@ -149,7 +142,7 @@ public class UserManagementTest {
     public void ratesselection(){
         userManagementPage.clickRatesButton();
         boolean confirmDetailsButton=userManagementPage.confirmDetailsButtonDisabled();
-        ExtentManager.createTest("Confirm details button is disbaled");
+        ExtentManager.createTest("Rates is selected for the user");
         if(confirmDetailsButton==true){
             ExtentManager.getTest().pass("button is disabled :"+confirmDetailsButton);
         }else{
@@ -161,7 +154,7 @@ public class UserManagementTest {
     public void selectRole(String role) throws InterruptedException {
         userManagementPage.selectRole();
         boolean confirmDetailsButton=userManagementPage.confirmClickEnabled();
-        ExtentManager.createTest("Confirm details button is disbaled");
+        ExtentManager.createTest("Roles is selected for the user");
         if(confirmDetailsButton==true){
             ExtentManager.getTest().pass("button is disabled :"+confirmDetailsButton);
         }else{
@@ -170,23 +163,50 @@ public class UserManagementTest {
     }
 
     @Test(priority = 12)
-    public void confirmandClick(){
+    public void confirmandClick() throws InterruptedException {
 
         boolean confirmDetailsButton=userManagementPage.confirmClickEnabled();
         ExtentManager.createTest("Confirm details button is disbaled");
-        if(confirmDetailsButton==false){
+        if(confirmDetailsButton==true){
             ExtentManager.getTest().pass("button is disabled :"+confirmDetailsButton);
         }else{
             ExtentManager.getTest().fail("button is disabled :"+confirmDetailsButton);
         }
-
         userManagementPage.confirmClick();
     }
+
+
+
+    @Test(priority = 13, dataProvider = "enterFirstName", dataProviderClass = ExcelUtils.class)
+    public void firstNameVerifcation(String firstname) throws IOException, InterruptedException {
+        userManagementPage.addUserbuttonClick();
+        userManagementPage.searchOption(firstname);
+        boolean searchFirstname=userManagementPage.searchFirstname(firstname);
+        ExtentManager.createTest("search firstname details is displayed");
+        if(searchFirstname=true){
+            ExtentManager.getTest().pass("details is displayed :"+searchFirstname);
+        }else{
+            ExtentManager.getTest().fail("details is displayed :"+searchFirstname);
+        }
+    }
+
+    @Test(priority = 14)
+    public void deleteUser() throws InterruptedException {
+        boolean deletedUser=userManagementPage.deleteUser();
+
+        ExtentManager.createTest("search delete user details is displayed");
+        if(deletedUser=true){
+            ExtentManager.getTest().pass("deleted user details is displayed :"+deletedUser);
+        }else{
+            ExtentManager.getTest().fail("deleted user detais is displayed :"+deletedUser);
+        }
+    }
+
 
     @AfterClass
     public void teardown() {
         if (driver != null) {
-          //  driver.quit();
+            driver.quit();
         }
         ExtentManager.flush();
     }

@@ -90,7 +90,7 @@ public class ExcelUtils {
 
 
     @DataProvider(name = "enterMailId")
-    public static Object[][] emailId() throws IOException {
+    public static Object[] emailId() throws IOException {
         FileInputStream file = new FileInputStream(FILE_PATH);
         Workbook workbook = new XSSFWorkbook(file);
         Sheet sheet = workbook.getSheet("Sheet1");
@@ -104,25 +104,23 @@ public class ExcelUtils {
         workbook.close();
 
         // Return the cellData in a 2D array format
-        return new Object[][] {{cellData}};
+        return new Object[] {cellData};
     }
 
     @DataProvider(name = "enterFirstName")
-    public static Object[][] firstName() throws IOException {
+    public static Object[] firstName() throws IOException {
         FileInputStream file = new FileInputStream(FILE_PATH);
         Workbook workbook = new XSSFWorkbook(file);
         Sheet sheet = workbook.getSheet("Sheet1");
-
-        // Define specific rows and columns for data extraction
         int rowIndex = 1; // Change this index for different rows as needed
         int colIndex = 5; // Column index for username
 
         String cellData = sheet.getRow(rowIndex).getCell(colIndex).toString();
 
         workbook.close();
-
+        System.out.println(cellData);
         // Return the cellData in a 2D array format
-        return new Object[][] {{cellData}};
+        return new Object[] {cellData};
     }
 
     @DataProvider(name = "enterSecondName")

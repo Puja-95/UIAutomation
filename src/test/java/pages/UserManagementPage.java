@@ -15,6 +15,9 @@ public class UserManagementPage extends BasePage {
 
     String role= Arrays.toString(ExcelUtils.addingRole());
     String addedRole = role.replaceAll("[\\[\\]]", "");
+    String firstname= Arrays.toString(ExcelUtils.firstName());
+    //  System.out.println(firstname+"this is from page");
+    String searchKeyword=firstname.replaceAll("[\\[\\]]", "");
     public UserManagementPage(WebDriver driver) throws IOException {
         super(driver);
         this.wait = new WaitUtil(driver, Duration.ofSeconds(5), Duration.ofSeconds(2));
@@ -42,12 +45,21 @@ public class UserManagementPage extends BasePage {
     @FindBy(xpath="//div[@role='combobox']")
     private WebElement selectRoleDropDown;
 
-    @FindBy(xpath = "//p[text()='Confirm user details']")
+    @FindBy(xpath = "//p[text()='Confirm user details' or text()='Yes, delete this user']")
     private WebElement confirmButton;
 
     @FindBy(xpath="//p[text()='Back to dashboard']")
     private WebElement backToDashboard;
 
+
+    @FindBy(xpath="//input[@id='search']")
+    private WebElement searchElement;
+
+    @FindBy(xpath="//div[text()='cb testing']")
+    private WebElement searchFirstname;
+
+    @FindBy(xpath="//td[3]/div/img")
+    private WebElement deleteUser;
   /*  @FindBy(xpath="//p[text()='"+addedRole+"']")
     private WebElement SelectedRole;*/
 
@@ -61,12 +73,21 @@ public class UserManagementPage extends BasePage {
        return addUserbuttonElement.isDisplayed();
     }
 
-    public void addUserbuttonClick(){
+    public void addUserbuttonClick() throws InterruptedException {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        Thread.sleep(2000);
+        while (!addUserbuttonElement.isDisplayed()) {
+            js.executeScript("arguments[0].scrollTop += 250;");
+        }
+        Thread.sleep(2000);
         addUserbuttonElement.click();
     }
 
     public boolean addUserButtonIsDisplayed(){
-        return addUserbuttonElement.isDisplayed();
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        while (!addUserbuttonElement.isDisplayed()) {
+            js.executeScript("arguments[0].scrollTop += 100;");
+        }return addUserbuttonElement.isDisplayed();
     }
 
     public void addingUserButtonClick(){
@@ -108,12 +129,36 @@ public class UserManagementPage extends BasePage {
         return confirmButton.isEnabled();
     }
 
-    public void confirmClick(){
+    public void confirmClick() throws InterruptedException {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         while (!confirmButton.isDisplayed()) {
             js.executeScript("arguments[0].scrollTop += 100;");
         }
         confirmButton.click();
+        Thread.sleep(2000);
         backToDashboard.click();
+    }
+
+    public void searchOption(String firstname) throws IOException {
+      //  firstname= Arrays.toString(ExcelUtils.firstName());
+      //  System.out.println(firstname+"this is from page");
+       // String searchKeyword=firstname.replaceAll("[\\[\\]]", "");
+        searchElement.clear();
+        searchElement.sendKeys(searchKeyword+"6");
+        searchElement.sendKeys(Keys.BACK_SPACE);
+    }
+
+    public boolean searchFirstname(String firstname){
+        boolean searchFirstNameVisible=searchFirstname.isDisplayed();
+return searchFirstNameVisible;
+    }
+
+    public boolean deleteUser() throws InterruptedException {
+        Thread.sleep(5000);
+        deleteUser.click();
+        Thread.sleep(2000);
+        confirmButton.click();
+        System.out.println(searchFirstname.isDisplayed());
+        return searchFirstname.isDisplayed();
     }
 }
