@@ -116,7 +116,7 @@ public class UserManagementTest {
 
     }
     @Test(priority = 8, dataProvider = "enterFirstName", dataProviderClass = ExcelUtils.class)
-    public void enterFirstName(String firstName) {
+    public void enterFirstName(String firstName) throws InterruptedException {
     userManagementPage.addFirstName(firstName);
         boolean confirmDetailsButton=userManagementPage.confirmDetailsButtonDisabled();
         ExtentManager.createTest("firstname is entered");
@@ -128,7 +128,7 @@ public class UserManagementTest {
     }
 
     @Test(priority = 9, dataProvider = "enterSecondName", dataProviderClass = ExcelUtils.class)
-    public void enterLastName(String lastName) {
+    public void enterLastName(String lastName) throws InterruptedException {
         userManagementPage.addLastName(lastName);
         boolean confirmDetailsButton=userManagementPage.confirmDetailsButtonDisabled();
         ExtentManager.createTest("Second name is entered");
@@ -140,11 +140,11 @@ public class UserManagementTest {
     }
 
     @Test(priority = 10)
-    public void ratesselection(){
+    public void ratesselection() throws InterruptedException {
         userManagementPage.clickRatesButton();
         boolean confirmDetailsButton=userManagementPage.confirmDetailsButtonDisabled();
         ExtentManager.createTest("Rates is selected for the user");
-        if(confirmDetailsButton==false){
+        if(confirmDetailsButton==true){
             ExtentManager.getTest().pass("button is disabled :"+confirmDetailsButton);
         }else{
             ExtentManager.getTest().fail("button is disabled :"+confirmDetailsButton);

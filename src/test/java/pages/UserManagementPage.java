@@ -102,7 +102,7 @@ Thread.sleep(2000);
         addUserbuttonElement.click();
     }
 
-    public boolean confirmDetailsButtonDisabled(){return confirmDetailsbuttonDisabled.isEnabled();}
+    public boolean confirmDetailsButtonDisabled() throws InterruptedException {Thread.sleep(2000); return confirmDetailsbuttonDisabled.isEnabled();}
     public void addMail(String mailId) throws InterruptedException {enterMail.clear();enterMail.sendKeys(mailId+"1");
         Thread.sleep(2000);
     enterMail.sendKeys(Keys.BACK_SPACE);
