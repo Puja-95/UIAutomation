@@ -181,4 +181,11 @@ String country= Arrays.toString(ExcelUtils.provideDataCountryName());
         return usernameField.isDisplayed();
     }
 
+    public boolean isRateSelectionPageIsdisplayed() {
+        return selectRates.isDisplayed();
+    }
+
+    public boolean IsRatesDashboardScreenDisplayed() {
+        return logoutbutton.isDisplayed();
+    }
 }

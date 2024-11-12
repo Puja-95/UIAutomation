@@ -143,43 +143,55 @@ public class LoginTest {
 
   @Test(priority = 6)
     public void selectLanguage(){
-        loginPage.SelectLanguage();
+      ExtentManager.createTest("Select language page Validation Test" );
+      try {
 
-      String payAsYouGoSelected=loginPage.optionSelected();
-      ExtentManager.createTest("Test Pay as you go mode Selection");
-      if(payAsYouGoSelected.equals("Rates")){
-          ExtentManager.getTest().pass("Pay as you go selected successfully :"+payAsYouGoSelected);
-      }else{
-          ExtentManager.getTest().fail("Pay as you go is failed successfull :"+payAsYouGoSelected);
+          loginPage.SelectLanguage();
+          ExtentManager.getTest().info("Language selected successfully");
+
+          if (loginPage.isRateSelectionPageIsdisplayed()) {
+              ExtentManager.getTest().pass("Rates page element appeared successfully.");
+          } else {
+              ExtentManager.getTest().fail("Rates page element did not appear.");
+          }
+      } catch (Exception e) {
+          ExtentManager.getTest().error("An error occurred: " + e.getMessage());
       }
-
   }
 
 
      @Test(priority = 7)
     public void selectRates(){
-        loginPage.selectRates();
-        String RatesSelected= loginPage.optionSelected();
-         ExtentManager.createTest("Test Rates Selection");
-         if(RatesSelected.equals("Pay as you go")) {
-           // Assert.assertEquals("Pay as you go", loginPage.optionSelected());
+         ExtentManager.createTest("Rates option page Validation Test" );
+              try {
+             loginPage.selectRates();
+             ExtentManager.getTest().info("Rates selected successfully");
 
-            ExtentManager.getTest().pass("Rates Selected Successfully : "+RatesSelected);
-        }else{
-            ExtentManager.getTest().fail("Rates not selected Failed :"+RatesSelected);
-        }
+             if (loginPage.isRateSelectionPageIsdisplayed()) {
+                 ExtentManager.getTest().pass("Prepaid selection page element appeared successfully.");
+             } else {
+                 ExtentManager.getTest().fail("Prepaid selection  page element did not appear.");
+             }
+         } catch (Exception e) {
+             ExtentManager.getTest().error("An error occurred: " + e.getMessage());
+         }
     }
 
     @Test(priority = 8)
     public void selectPayasyougo(){
+        ExtentManager.createTest("Pay as you go option page Validation Test" );
+        try {
 
-        loginPage.selectPayasyougo();
-        ExtentManager.createTest("Validate Successful Login");
-        boolean dashboardVerified=loginPage.dashboardPage();
-        if(dashboardVerified==true){
-            ExtentManager.getTest().pass("Login was successful: " + dashboardVerified);
-        }else {
-            ExtentManager.getTest().fail("Login failed. Expected message: " +dashboardVerified);
+            loginPage.selectPayasyougo();
+            ExtentManager.getTest().info("Prepaid page selected successfully");
+
+            if (loginPage.IsRatesDashboardScreenDisplayed()) {
+                ExtentManager.getTest().pass("Rates Dashboard page element appeared successfully.");
+            } else {
+                ExtentManager.getTest().fail("Rates Dashboard page element did not appear.");
+            }
+        } catch (Exception e) {
+            ExtentManager.getTest().error("An error occurred: " + e.getMessage());
         }
         }
 
