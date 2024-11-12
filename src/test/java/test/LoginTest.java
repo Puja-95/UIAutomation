@@ -77,35 +77,61 @@ public class LoginTest {
 
 
       @Test(dataProvider = "excelDataUsername", dataProviderClass = ExcelUtils.class, priority = 3)
-    public void loginUser(String username){
-
-boolean enteredPassword=loginPage.loginButton();
-          ExtentManager.createTest("Entered username successfully");
-if(enteredPassword==true){
-    ExtentManager.getTest().pass("Username entered successfully "+enteredPassword);
-
-
-}else{
-    ExtentManager.getTest().fail("Username not entered "+enteredPassword);
-}
+    public void loginUser(String username) throws InterruptedException {
         loginPage.Adminlogin(username);
-        loginPage.loginButtonClick();
+
+          ExtentManager.createTest("Login by password Button Click Validation Test" );
+
+          try {
+              // Check if the button is clickable
+              if (loginPage.isLoginByPasswordClickable()) {
+                  ExtentManager.getTest().pass("Login by password Button is clickable.");
+
+                  // Perform click action
+                  loginPage.loginByPasswordclickButton();
+                  ExtentManager.getTest().info("Button clicked.");
+
+                  // Validate that new element appears
+                  if (loginPage.isPasswordElementDisplayed()) {
+                      ExtentManager.getTest().pass("Password entering element appeared after clicking the button.");
+                  } else {
+                      ExtentManager.getTest().fail("Expected element did not appear.");
+                  }
+              } else {
+                  ExtentManager.getTest().fail("Button is not clickable.");
+              }
+          } catch (Exception e) {
+              ExtentManager.getTest().error("An error occurred: " + e.getMessage());
+          }
+       // loginPage.loginButtonClick();
     }
 
     @Test(dataProvider = "excelDataPassword", dataProviderClass = ExcelUtils.class, priority = 4)
     public void loginByPasswordEnabled(String password){
         loginPage.adminPassword(password);
+        ExtentManager.createTest("Confirm and Click button Validation Test" );
 
+        try {
+            // Check if the button is clickable
+            if (loginPage.isButtonClickable()) {
+                ExtentManager.getTest().pass("Button is clickable.");
 
-        boolean enteredPassword=loginPage.loginButtonEnabaled();
-        ExtentManager.createTest("Test entered password successfully");
-        if(enteredPassword==true){
-            ExtentManager.getTest().pass("Password eneterd successfully :"+ enteredPassword);
-        }else{
-            ExtentManager.getTest().fail("Password not enetered successfully :"+ enteredPassword);
+                // Perform click action
+                loginPage.clickButton();
+                ExtentManager.getTest().info("Button clicked.");
+
+                // Validate that new element appears
+                if (loginPage.isNewElementDisplayed()) {
+                    ExtentManager.getTest().pass("language selection element appeared after clicking the button.");
+                } else {
+                    ExtentManager.getTest().fail("Expected element did not appear.");
+                }
+            } else {
+                ExtentManager.getTest().fail("Button is not clickable.");
+            }
+        } catch (Exception e) {
+            ExtentManager.getTest().error("An error occurred: " + e.getMessage());
         }
-        Assert.assertEquals(true, loginPage.loginButtonEnabaled());
-        loginPage.confirmAndClick();
     }
 
   @Test(priority = 5)

@@ -103,9 +103,6 @@ String country= Arrays.toString(ExcelUtils.provideDataCountryName());
         selectRates.click();
     }
 
-    public  void selectManageRates(){
-        confirmButton.click();
-    }
 
 
 
@@ -127,7 +124,8 @@ String country= Arrays.toString(ExcelUtils.provideDataCountryName());
         return loginButton.isEnabled();
     }
 
-    public void loginButtonClick(){
+    public void loginButtonClick() throws InterruptedException {
+        Thread.sleep(2000);
         loginButton.click();
         wait.scrollByPixels(200);
 
@@ -145,5 +143,37 @@ String country= Arrays.toString(ExcelUtils.provideDataCountryName());
     public boolean dashboardPage(){
         boolean logoutIsVisible=logoutbutton.isDisplayed();
         return logoutIsVisible;
+    }
+//this newly added code for more validation of password*****************************
+    public boolean isButtonClickable() throws InterruptedException {
+        Thread.sleep(3000);
+        return confirmButton.isEnabled();
+    }
+
+    // Method to click the button
+    public void clickButton() throws InterruptedException {
+        Thread.sleep(3000);
+        confirmButton.click();
+    }
+
+    public boolean isLoginByPasswordClickable() throws InterruptedException {
+        Thread.sleep(3000);
+        return loginButton.isEnabled();
+    }
+
+    // Method to click the button
+    public void loginByPasswordclickButton() throws InterruptedException {
+        Thread.sleep(3000);
+        loginButton.click();
+    }
+
+
+    // Method to check if the new element appeared
+    public boolean isNewElementDisplayed() {
+        return languageSelect.isDisplayed();
+    }
+
+    public boolean isPasswordElementDisplayed() {
+        return passwordField.isDisplayed();
     }
 }

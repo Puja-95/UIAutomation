@@ -59,7 +59,7 @@ public class DashboardTest {
     }
 
     @Test(dataProvider = "excelDataUsername", dataProviderClass = ExcelUtils.class, priority = 2)
-    public void loginUser(String username)  {
+    public void loginUser(String username) throws InterruptedException {
 
         loginPage.Adminlogin(username);
         loginPage.loginButtonClick();
