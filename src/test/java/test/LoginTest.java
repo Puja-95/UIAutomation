@@ -65,33 +65,47 @@ public class LoginTest {
         String countrySelected=loginPage.SelectCountry();
         ExtentManager.createTest("Country selected successfully");
         if(countrySelected.equals(loginPage.ExpectedCountry())){
-            ExtentManager.getTest().pass("Correct country selected :"+countrySelected);
+            ExtentManager.getTest().pass("Country is present :"+countrySelected);
         }else{
-            ExtentManager.getTest().fail("Correct country not selected :"+countrySelected);
+            ExtentManager.getTest().fail("country is not present :"+countrySelected);
         }
 
-        loginPage.SelectedCountry();
 
     }
 
+    @Test(priority=3, dataProvider = "countryData", dataProviderClass = ExcelUtils.class)
+    public void loginByUsername(String country)  {
+        ExtentManager.createTest("Username Page Element Validation Test");
+
+        try {
+
+            loginPage.SelectedCountry();
+            ExtentManager.getTest().info("Country selected successfully");
+
+            if (loginPage.isEnterUsernameScreenDisplayed()) {
+                ExtentManager.getTest().pass("Username page element appeared successfully.");
+            } else {
+                ExtentManager.getTest().fail("username enter page element did not appear.");
+            }
+        } catch (Exception e) {
+            ExtentManager.getTest().error("An error occurred: " + e.getMessage());
+        }
 
 
-      @Test(dataProvider = "excelDataUsername", dataProviderClass = ExcelUtils.class, priority = 3)
+
+    }
+
+      @Test(dataProvider = "excelDataUsername", dataProviderClass = ExcelUtils.class, priority = 4)
     public void loginUser(String username) throws InterruptedException {
         loginPage.Adminlogin(username);
 
           ExtentManager.createTest("Login by password Button Click Validation Test" );
 
           try {
-              // Check if the button is clickable
               if (loginPage.isLoginByPasswordClickable()) {
                   ExtentManager.getTest().pass("Login by password Button is clickable.");
-
-                  // Perform click action
                   loginPage.loginByPasswordclickButton();
                   ExtentManager.getTest().info("Button clicked.");
-
-                  // Validate that new element appears
                   if (loginPage.isPasswordElementDisplayed()) {
                       ExtentManager.getTest().pass("Password entering element appeared after clicking the button.");
                   } else {
@@ -103,24 +117,17 @@ public class LoginTest {
           } catch (Exception e) {
               ExtentManager.getTest().error("An error occurred: " + e.getMessage());
           }
-       // loginPage.loginButtonClick();
     }
 
-    @Test(dataProvider = "excelDataPassword", dataProviderClass = ExcelUtils.class, priority = 4)
+    @Test(dataProvider = "excelDataPassword", dataProviderClass = ExcelUtils.class, priority = 5)
     public void loginByPasswordEnabled(String password){
         loginPage.adminPassword(password);
         ExtentManager.createTest("Confirm and Click button Validation Test" );
-
         try {
-            // Check if the button is clickable
             if (loginPage.isButtonClickable()) {
                 ExtentManager.getTest().pass("Button is clickable.");
-
-                // Perform click action
                 loginPage.clickButton();
                 ExtentManager.getTest().info("Button clicked.");
-
-                // Validate that new element appears
                 if (loginPage.isNewElementDisplayed()) {
                     ExtentManager.getTest().pass("language selection element appeared after clicking the button.");
                 } else {
@@ -134,7 +141,7 @@ public class LoginTest {
         }
     }
 
-  @Test(priority = 5)
+  @Test(priority = 6)
     public void selectLanguage(){
         loginPage.SelectLanguage();
 
@@ -149,7 +156,7 @@ public class LoginTest {
   }
 
 
-     @Test(priority = 6)
+     @Test(priority = 7)
     public void selectRates(){
         loginPage.selectRates();
         String RatesSelected= loginPage.optionSelected();
@@ -163,7 +170,7 @@ public class LoginTest {
         }
     }
 
-    @Test(priority = 7)
+    @Test(priority = 8)
     public void selectPayasyougo(){
 
         loginPage.selectPayasyougo();

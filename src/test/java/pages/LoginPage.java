@@ -176,4 +176,9 @@ String country= Arrays.toString(ExcelUtils.provideDataCountryName());
     public boolean isPasswordElementDisplayed() {
         return passwordField.isDisplayed();
     }
+
+    public boolean isEnterUsernameScreenDisplayed() {
+        return usernameField.isDisplayed();
+    }
+
 }
