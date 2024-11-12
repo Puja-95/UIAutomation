@@ -56,7 +56,7 @@ String country= Arrays.toString(ExcelUtils.provideDataCountryName());
     public String SelectCountry() throws InterruptedException {
         Thread.sleep(3000);
         wait.scrollByPixels(100);
-        String countr = country.replaceAll("[\\[\\]]", "");
+        countr = country.replaceAll("[\\[\\]]", "");
         JavascriptExecutor js = (JavascriptExecutor) driver;
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
         WebElement scrollableBox = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='_countryGrid_1b7ra_77 MuiBox-root css-0']/child::div")));

@@ -16,27 +16,18 @@ import java.io.IOException;
 
 
 public class LoginTest {
-
     private WebDriver driver;
-
     public LoginPage loginPage;
-
-
 
     @BeforeClass()
     public void setup() {
-
-
         String userDirectory = System.getProperty("user.dir");
-
         System.setProperty("webdriver.chrome.driver", userDirectory+"/src/chromedriver.exe");
         driver = new ChromeDriver();
     }
 
     @Test(dataProvider = "excelData", dataProviderClass = ExcelUtils.class, priority = 1)
     public void loginTest(String environment) throws InterruptedException, IOException {
-
-
         String baseUrl;
         if ("Dev".equalsIgnoreCase(environment)) {
             baseUrl = "https://dt-admin-dev.ldsvcplatform.com/en/login";
@@ -162,7 +153,7 @@ if(enteredPassword==true){
     @AfterClass
     public void teardown() {
         if (driver != null) {
-            driver.quit();
+           // driver.quit();
         }
         ExtentManager.flush();
     }
