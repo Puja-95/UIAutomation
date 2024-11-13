@@ -198,7 +198,8 @@ public class LoginTest {
     @AfterClass
     public void teardown() {
         if (driver != null) {
-           // driver.quit();
+
+            driver.quit();
         }
         ExtentManager.flush();
     }

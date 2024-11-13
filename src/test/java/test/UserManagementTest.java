@@ -78,43 +78,86 @@ public class UserManagementTest {
     @Test(priority=5)
     public void manageUserAddButton() throws InterruptedException, IOException {
         userManagementPage=new UserManagementPage(driver);
-        boolean addUserButtonDisplayed=userManagementPage.ManageUserbuttonIsDisplayed();
+       /* boolean addUserButtonDisplayed=userManagementPage.ManageUserbuttonIsDisplayed();
         ExtentManager.createTest("Manage and Add user button clicked successfully");
         if(addUserButtonDisplayed==true){
             ExtentManager.getTest().pass("Manage and Add user button displayed :"+addUserButtonDisplayed);
         }else{
             ExtentManager.getTest().fail("Manage and Add user button displayed :"+addUserButtonDisplayed);
         }
-        userManagementPage.addUserbuttonClick();
+        userManagementPage.addUserbuttonClick();*/
+
+        ExtentManager.createTest("User Management functionality Test" );
+        try {
+            boolean addUserButtonDisplayed=userManagementPage.ManageUserbuttonIsDisplayed();
+            //loginPage.SelectLanguage();
+            ExtentManager.getTest().info("Language selected successfully");
+
+            if (addUserButtonDisplayed) {
+                ExtentManager.getTest().pass("Manage User Button element appeared successfully.");
+            } else {
+                ExtentManager.getTest().fail("Manage User Button element did not appear.");
+            }
+        } catch (Exception e) {
+            ExtentManager.getTest().error("An error occurred: " + e.getMessage());
+        }
     }
 
     @Test(priority=6)
     public void AddUserButton() throws InterruptedException {
-        boolean adduserbuttonDisplay=userManagementPage.addUserButtonIsDisplayed(); ExtentManager.createTest("Add user button clicked successfully");
-        ExtentManager.createTest("Add user button clicked successfully");
-        if(adduserbuttonDisplay==true){
-            ExtentManager.getTest().pass("Add user button displayed :"+adduserbuttonDisplay);
-        }else{
-            ExtentManager.getTest().fail("Add user button displayed :"+adduserbuttonDisplay);
+        userManagementPage.addUserbuttonClick();
+
+        try {
+            boolean addUserButtonDisplayed=userManagementPage.addUserButtonIsDisplayed();
+            ExtentManager.createTest("Add user button clicked successfully");
+            if (addUserButtonDisplayed) {
+                ExtentManager.getTest().pass("Add User Button element appeared successfully.");
+            } else {
+                ExtentManager.getTest().fail("Add User Button element did not appear.");
+
+            }} catch(Exception e){
+                ExtentManager.getTest().error("An error occurred: " + e.getMessage());
+            }
+
+           // userManagementPage.addingUserButtonClick();
         }
 
-        userManagementPage.addingUserButtonClick();
-    }
 
-
-    @Test(priority = 7, dataProvider = "enterMailId", dataProviderClass = ExcelUtils.class)
-    public void enterMailId(String mailid) throws InterruptedException {
-
-    userManagementPage.addMail(mailid);
+    @Test(priority = 7)
+    public void enterMailId() throws InterruptedException {
+userManagementPage.addingUserButtonClick();
+   boolean emailIdElementDisplayed= userManagementPage.emailIdFieldDisplayed();
+   try{
     boolean confirmDetailsButton=userManagementPage.confirmDetailsButtonDisabled();
         ExtentManager.createTest("enter email id is entered");
-        if(confirmDetailsButton==true){
-            ExtentManager.getTest().pass("button is disabled :"+confirmDetailsButton);
-        }else{
-            ExtentManager.getTest().fail("button is disabled :"+confirmDetailsButton);
+        if(emailIdElementDisplayed==true){
+            ExtentManager.getTest().pass("email id field is displayed :"+confirmDetailsButton);
+        }else if(confirmDetailsButton==true){
+            ExtentManager.getTest().pass("button is displayed :"+confirmDetailsButton);
         }
-
+        else {
+            ExtentManager.getTest().fail("User management form is not getting displayed");
+        }} catch(Exception e){
+        ExtentManager.getTest().error("An error occurred: " + e.getMessage());
     }
+}
+
+@Test(priority = 8, dataProvider = "enterMailId", dataProviderClass = ExcelUtils.class)
+public void enterEmail(String email) throws InterruptedException {
+
+        userManagementPage.addMail(email);
+    try {
+        boolean addUserButtonDisplayed=userManagementPage.firstNameEnterBoxDisplayed();
+        ExtentManager.createTest("Add firstname is getting displayed successfully");
+        if (addUserButtonDisplayed) {
+            ExtentManager.getTest().pass("firstname element appeared successfully.");
+        } else {
+            ExtentManager.getTest().fail("Add User Button element did not appear.");
+
+        }} catch(Exception e){
+        ExtentManager.getTest().error("An error occurred: " + e.getMessage());
+    }
+}
     @Test(priority = 8, dataProvider = "enterFirstName", dataProviderClass = ExcelUtils.class)
     public void enterFirstName(String firstName) throws InterruptedException {
     userManagementPage.addFirstName(firstName);

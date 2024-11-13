@@ -107,8 +107,16 @@ Thread.sleep(2000);
         Thread.sleep(2000);
     enterMail.sendKeys(Keys.BACK_SPACE);
     Thread.sleep(2000);}
+
+    public boolean emailIdFieldDisplayed(){
+        return enterMail.isDisplayed();
+    }
     public void addFirstName(String firstName){enterFirstName.clear();enterFirstName.sendKeys(firstName+"1");
     enterFirstName.sendKeys(Keys.BACK_SPACE);}
+
+    public boolean firstNameEnterBoxDisplayed(){
+        return enterFirstName.isDisplayed();
+    }
     public void addLastName(String lastName){enterLastName.clear();enterLastName.sendKeys(lastName+"1");
     enterLastName.sendKeys(Keys.BACK_SPACE);}
     public void clickRatesButton(){selectRatesButton.click();}
