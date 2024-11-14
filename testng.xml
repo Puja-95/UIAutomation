@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="DataDrivenSuite">
+
+        <listeners>
+            <!-- Add your listener class here that implements Extent Reports -->
+            <listener class-name="utils.TestListener"/>
+        </listeners>
+    <test name="LoginTests">
+        <classes>
+            <class name="test.LoginTest"/>
+            <class name="test.UserManagementTest"/>
+        </classes>
+    </test>
+</suite>
