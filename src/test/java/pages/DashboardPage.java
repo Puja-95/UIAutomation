@@ -1,6 +1,7 @@
 package pages;
 
 import BasePackage.BasePage;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -29,6 +30,9 @@ public class DashboardPage extends BasePage {
     @FindBy(xpath = "//tbody/tr/td/div/p[text()='Draft']")
     private WebElement filteredDraftElement;
 
+    @FindBy(xpath="//button/span[text()=0][1]")
+    private WebElement draftNullFilter;
+
     public String dashboardHeading() throws InterruptedException {
         // Thread.sleep(2000);
         System.out.println(headingDashboardElement.getText());
@@ -50,9 +54,27 @@ public class DashboardPage extends BasePage {
         draftFilterElement.click();
     }
 
-    public String filteredValue() {
-        System.out.println(filteredDraftElement.getText());
-        return filteredDraftElement.getText();
+    public String filteredValue() throws InterruptedException {
+        wait.scrollByPixels(100);
+        Thread.sleep(5000);
+        try {
+            if (filteredDraftElement.isDisplayed()) {
+                return filteredDraftElement.getText();
+            } else {
+                return "0";
+            }
+        } catch (NoSuchElementException e) {
+            return "0";  // Element not found, return "0" as default
+        }
     }
 
+  /*  public boolean filteredvalueDisplaye(){
+
+        return filteredDraftElement.isDisplayed();
+    }*/
+
+    public String zeroElement(){
+
+        return draftNullFilter.getText();
+    }
 }

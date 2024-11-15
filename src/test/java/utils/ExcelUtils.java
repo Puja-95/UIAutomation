@@ -31,7 +31,7 @@ public class ExcelUtils {
     }
 
     @DataProvider(name = "excelDataUsername")
-    public static Object[][] provideDataUsername() throws IOException {
+    public static Object[] provideDataUsername() throws IOException {
         FileInputStream file = new FileInputStream(FILE_PATH);
         Workbook workbook = new XSSFWorkbook(file);
         Sheet sheet = workbook.getSheet("Sheet1");
@@ -45,7 +45,7 @@ public class ExcelUtils {
         workbook.close();
 
         // Return the cellData in a 2D array format
-        return new Object[][] {{cellData}}; // Wrap the single value in an Object array
+        return new Object[] {cellData}; // Wrap the single value in an Object array
     }
 
     @DataProvider(name = "excelDataPassword")
@@ -117,6 +117,38 @@ public class ExcelUtils {
 
         String cellData = sheet.getRow(rowIndex).getCell(colIndex).toString();
 
+        workbook.close();
+        System.out.println(cellData);
+        // Return the cellData in a 2D array format
+        return new Object[] {cellData};
+    }
+
+    @DataProvider(name = "enterInvalidUsername")
+    public static Object[] invalidUser() throws IOException {
+        FileInputStream file = new FileInputStream(FILE_PATH);
+        Workbook workbook = new XSSFWorkbook(file);
+        Sheet sheet = workbook.getSheet("Sheet1");
+        int rowIndex = 2; // Change this index for different rows as needed
+        int colIndex = 1; // Column index for username
+
+        String cellData = sheet.getRow(rowIndex).getCell(colIndex).toString();
+//String cellData1=sheet.getRow(rowIndex1).getCell(colIndex1).toString();
+        workbook.close();
+        System.out.println(cellData);
+        // Return the cellData in a 2D array format
+        return new Object[] {cellData};
+    }
+
+    @DataProvider(name = "invalidPassword")
+    public static Object[] invalidPassword() throws IOException {
+        FileInputStream file = new FileInputStream(FILE_PATH);
+        Workbook workbook = new XSSFWorkbook(file);
+        Sheet sheet = workbook.getSheet("Sheet1");
+        int rowIndex = 2; // Change this index for different rows as needed
+        int colIndex = 2; // Column index for username
+
+        String cellData = sheet.getRow(rowIndex).getCell(colIndex).toString();
+//String cellData1=sheet.getRow(rowIndex1).getCell(colIndex1).toString();
         workbook.close();
         System.out.println(cellData);
         // Return the cellData in a 2D array format

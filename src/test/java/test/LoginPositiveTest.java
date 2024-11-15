@@ -1,8 +1,6 @@
 package test;
 
 
-import org.testng.Assert;
-
 import org.testng.annotations.*;
 import pages.LoginPage;
 import org.openqa.selenium.WebDriver;
@@ -15,7 +13,7 @@ import utils.ExtentManager;
 import java.io.IOException;
 
 
-public class LoginTest {
+public class LoginPositiveTest {
     private WebDriver driver;
     public LoginPage loginPage;
 
@@ -181,7 +179,6 @@ public class LoginTest {
     public void selectPayasyougo(){
         ExtentManager.createTest("Pay as you go option page Validation Test" );
         try {
-
             loginPage.selectPayasyougo();
             ExtentManager.getTest().info("Prepaid page selected successfully");
 
@@ -193,12 +190,11 @@ public class LoginTest {
         } catch (Exception e) {
             ExtentManager.getTest().error("An error occurred: " + e.getMessage());
         }
-        }
+    }
 
     @AfterClass
     public void teardown() {
         if (driver != null) {
-
             driver.quit();
         }
         ExtentManager.flush();

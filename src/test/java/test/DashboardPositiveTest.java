@@ -12,7 +12,7 @@ import utils.ExtentManager;
 
 import java.io.IOException;
 
-public class DashboardTest {
+public class DashboardPositiveTest {
     private WebDriver driver;
     public LoginPage loginPage;
 
@@ -110,10 +110,24 @@ public class DashboardTest {
     }
 
     @Test(priority = 7)
-    public void testDraftFilter(){
+    public void testDraftFilter() throws InterruptedException {
         dashboardPage.draftFilter();
         dashboardPage.draftFilterClick();
-        dashboardPage.filteredValue();
+        String filteravlue=dashboardPage.filteredValue();
+        String valueDisplayed=dashboardPage.filteredValue();
+        String zeroValueDisplayed=dashboardPage.zeroElement();
+        ExtentManager.createTest("Filtered value is getting displayed or not");
+      try {
+
+        if(filteravlue.equals("Draft")){
+            ExtentManager.getTest().pass("Draft filtered values displayed successfully");
+        } else if (filteravlue.equals("0")) {
+            ExtentManager.getTest().pass("Filtered value is zero");
+            
+        }}
+      catch (Exception e){
+          ExtentManager.getTest().fail("Not able to find the null value"+e.getMessage());
+      }
     }
     @AfterClass
     public void teardown() {

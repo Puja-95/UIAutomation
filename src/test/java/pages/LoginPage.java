@@ -2,10 +2,7 @@ package pages;
 
 
 import BasePackage.BasePage;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -37,6 +34,8 @@ String country= Arrays.toString(ExcelUtils.provideDataCountryName());
     @FindBy(xpath = "//p[text()='Confirm & Continue' or text()='Add or manage rates']")
     private WebElement confirmButton;
 
+    @FindBy(xpath="//p[text()='user not found']")
+    private WebElement messageElement;
     @FindBy(xpath="//span[text()='EN']")
     private WebElement languageSelect;
 
@@ -47,6 +46,10 @@ String country= Arrays.toString(ExcelUtils.provideDataCountryName());
 
     @FindBy(xpath="//p[text()='Log out']")
     private WebElement logoutbutton;
+
+
+    @FindBy(xpath="//div[text()='email/password value is incorrect']")
+    private WebElement errorMsgPassword;
 
     public LoginPage(WebDriver driver) throws IOException {
         super(driver);
@@ -73,6 +76,8 @@ String country= Arrays.toString(ExcelUtils.provideDataCountryName());
         WebElement selectCountry=driver.findElement(By.xpath("//span[text()='"+countr+"']"));
         return selectCountry.getText();
     }
+
+
 
     public String ExpectedCountry(){
         String countr = country.replaceAll("[\\[\\]]", "");
@@ -103,17 +108,40 @@ String country= Arrays.toString(ExcelUtils.provideDataCountryName());
         selectRates.click();
     }
 
-
-
-
     public void Adminlogin(String username) {
      wait.setImplicitWait(Duration.ofSeconds(10));
      wait.scrollByPixels(200);
-
+usernameField.clear();
         usernameField.sendKeys(username);
         
     }
+    public void invalidlogin(String username) {
+        wait.setImplicitWait(Duration.ofSeconds(10));
+        wait.scrollByPixels(200);
+        usernameField.clear();
+        usernameField.sendKeys(username);
 
+    }
+
+    public String invalidPassword(){
+        String errorMsg=errorMsgPassword.getText();
+        return errorMsg;
+    }
+
+    public void validPassword() throws InterruptedException {
+        Thread.sleep(2000);
+        passwordField.sendKeys(Keys.BACK_SPACE);
+        passwordField.sendKeys(Keys.BACK_SPACE);
+
+    }
+    public String getMessageText() {
+        return messageElement.getText();
+    }
+
+    public boolean clearText(){
+        usernameField.clear();  return usernameField.getText().isEmpty();
+
+    }
     public void adminPassword(String password){
         passwordField.sendKeys(password);
     }

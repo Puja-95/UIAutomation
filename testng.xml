@@ -7,8 +7,11 @@
         </listeners>
     <test name="LoginTests">
         <classes>
-            <class name="test.LoginTest"/>
-            <class name="test.UserManagementTest"/>
+            <class name="test.LoginPositiveTest"/>
+            <class name="test.UserManagementPositiveTest"/>
+            <class name="test.DashboardPositiveTest"/>
+            <class name="test.LoginFunctionalityNegativeTest"/>
+            <class name="test.UserManagementNegativeTest"/>
         </classes>
     </test>
 </suite>

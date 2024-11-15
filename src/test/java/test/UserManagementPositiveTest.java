@@ -14,7 +14,7 @@ import utils.ExtentManager;
 
 import java.io.IOException;
 
-public class UserManagementTest {
+public class UserManagementPositiveTest {
     private WebDriver driver;
     public LoginPage loginPage;
 
