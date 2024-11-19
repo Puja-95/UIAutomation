@@ -62,6 +62,12 @@
             <version>4.1.7</version>
             <scope>test</scope>
         </dependency>
+        <!-- ZAP Client API -->
+        <dependency>
+            <groupId>org.zaproxy</groupId>
+            <artifactId>zap-clientapi</artifactId>
+            <version>1.10.0</version>
+        </dependency>
 
 
     </dependencies>

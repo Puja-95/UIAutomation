@@ -130,8 +130,9 @@ usernameField.clear();
 
     public void validPassword() throws InterruptedException {
         Thread.sleep(2000);
-        passwordField.sendKeys(Keys.BACK_SPACE);
-        passwordField.sendKeys(Keys.BACK_SPACE);
+        passwordField.clear();
+      /*  passwordField.sendKeys(Keys.BACK_SPACE);
+        passwordField.sendKeys(Keys.BACK_SPACE);*/
 
     }
     public String getMessageText() {

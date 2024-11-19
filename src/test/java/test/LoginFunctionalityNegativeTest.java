@@ -32,7 +32,10 @@ public class LoginFunctionalityNegativeTest {
             baseUrl = "https://dt-admin-pre-prod.ldsvcplatform.com/en/login";
         } else if ("Stage".equalsIgnoreCase(environment)) {
             baseUrl="https://dt-admin-stage.ldsvcplatform.com/en/login";
-        } else {
+        } else if ("Prod".equalsIgnoreCase(environment)) {
+            baseUrl = "https://kiwi-admin.ldsvcplatform.com/en/login";
+        }
+        else {
             throw new IllegalArgumentException("Invalid environment: " + environment);
         }
         ExtentManager.createTest("Environement selected successfully");
@@ -141,12 +144,19 @@ public class LoginFunctionalityNegativeTest {
     }
 
 
-    @Test(dataProvider = "excelDataPassword", dataProviderClass = ExcelUtils.class, priority = 7)
-    public void loginByPassword(String password) throws InterruptedException {
+    @Test(priority = 7)
+    public void loginByPassword() throws InterruptedException {
         Thread.sleep(2000);
         loginPage.validPassword();
-        loginPage.confirmAndClick();
+       // loginPage.adminPassword(password);
+      //  loginPage.confirmAndClick();
 
+    }
+
+    @Test(dataProvider = "excelDataPassword", dataProviderClass = ExcelUtils.class, priority = 8)
+    public void validpassword(String password){
+        loginPage.adminPassword(password);
+        loginPage.confirmAndClick();
     }
 
     @AfterClass

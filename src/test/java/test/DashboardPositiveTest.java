@@ -27,7 +27,7 @@ public class DashboardPositiveTest {
         dashboardPage = new DashboardPage(driver);
     }
     @Test(dataProvider = "excelData", dataProviderClass = ExcelUtils.class, priority = 1)
-    public void loginTest(String environment) throws InterruptedException, IOException {
+    public void test_Login(String environment) throws InterruptedException, IOException {
         String baseUrl;
         if ("Dev".equalsIgnoreCase(environment)) {
             baseUrl = "https://dt-admin-dev.ldsvcplatform.com/en/login";
@@ -35,7 +35,10 @@ public class DashboardPositiveTest {
             baseUrl = "https://dt-admin-pre-prod.ldsvcplatform.com/en/login";
         } else if ("Stage".equalsIgnoreCase(environment)) {
             baseUrl="https://dt-admin-stage.ldsvcplatform.com/en/login";
-        } else {
+        }   else if ("Prod".equalsIgnoreCase(environment)) {
+            baseUrl = "https://kiwi-admin.ldsvcplatform.com/en/login";
+
+        }else {
             throw new IllegalArgumentException("Invalid environment: " + environment);
         }
         ExtentManager.createTest("Environement selected successfully");
@@ -44,15 +47,14 @@ public class DashboardPositiveTest {
         } else if (environment.equals("Preprod")) {
             ExtentManager.getTest().pass("Environement selected success fully :"+environment);
         } else if (environment.equals("Stage")) {
-            ExtentManager.getTest().pass("Environmenent selected successfully :"+environment);
+            ExtentManager.getTest().pass("Environmenent selected successfully :" + environment);
+        }else if ("Prod".equalsIgnoreCase(environment)) {
+                baseUrl="https://kiwi-admin.ldsvcplatform.com/en/login";
 
-        } else {
+            } else {
             ExtentManager.getTest().fail("Environement not passed correctly :"+environment);
         }
-
         driver.get(baseUrl);
-
-
         driver.manage().window().maximize();
         loginPage.SelectCountry();
         loginPage.SelectedCountry();
@@ -60,7 +62,6 @@ public class DashboardPositiveTest {
 
     @Test(dataProvider = "excelDataUsername", dataProviderClass = ExcelUtils.class, priority = 2)
     public void loginUser(String username) throws InterruptedException {
-
         loginPage.Adminlogin(username);
         loginPage.loginButtonClick();
     }
@@ -73,6 +74,8 @@ public class DashboardPositiveTest {
         loginPage.selectRates();
         loginPage.selectPayasyougo();
     }
+
+
 
     @Test(priority = 4)
     public void dashboardHeading() throws InterruptedException {
@@ -95,7 +98,6 @@ public class DashboardPositiveTest {
             ExtentManager.getTest().fail("Logout option is getting displayed "+headingDashboard);
         }
     }
-
 
     @Test(priority = 6)
     public  void tableDataValidation(){

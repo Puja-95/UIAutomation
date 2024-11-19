@@ -33,7 +33,9 @@ public class LoginPositiveTest {
             baseUrl = "https://dt-admin-pre-prod.ldsvcplatform.com/en/login";
         } else if ("Stage".equalsIgnoreCase(environment)) {
             baseUrl="https://dt-admin-stage.ldsvcplatform.com/en/login";
-        } else {
+        } else if ("Prod".equalsIgnoreCase(environment)) {
+        baseUrl="https://kiwi-admin.ldsvcplatform.com/en/login";
+            }else {
             throw new IllegalArgumentException("Invalid environment: " + environment);
         }
         ExtentManager.createTest("Environement selected successfully");

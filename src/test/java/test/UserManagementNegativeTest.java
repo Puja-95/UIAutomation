@@ -36,7 +36,11 @@ public class UserManagementNegativeTest {
             baseUrl = "https://dt-admin-pre-prod.ldsvcplatform.com/en/login";
         } else if ("Stage".equalsIgnoreCase(environment)) {
             baseUrl="https://dt-admin-stage.ldsvcplatform.com/en/login";
-        } else {
+        }
+        else if ("Prod".equalsIgnoreCase(environment)) {
+            baseUrl = "https://kiwi-admin.ldsvcplatform.com/en/login";
+
+        }else {
             throw new IllegalArgumentException("Invalid environment: " + environment);
         }
         ExtentManager.createTest("Environement selected successfully");
@@ -45,9 +49,11 @@ public class UserManagementNegativeTest {
         } else if (environment.equals("Preprod")) {
             ExtentManager.getTest().pass("Environement selected success fully :"+environment);
         } else if (environment.equals("Stage")) {
-            ExtentManager.getTest().pass("Environmenent selected successfully :"+environment);
+            ExtentManager.getTest().pass("Environmenent selected successfully :" + environment);
+        }else if ("Prod".equalsIgnoreCase(environment)) {
+                baseUrl = "https://kiwi-admin.ldsvcplatform.com/en/login";
 
-        } else {
+            } else {
             ExtentManager.getTest().fail("Environement not passed correctly :"+environment);
         }
 
