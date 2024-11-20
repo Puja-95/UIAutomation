@@ -153,11 +153,21 @@ public class LoginFunctionalityNegativeTest {
 
     }
 
-    @Test(dataProvider = "excelDataPassword", dataProviderClass = ExcelUtils.class, priority = 8)
-    public void validpassword(String password){
+    @Test(dataProvider = "excelDataUsername", dataProviderClass = ExcelUtils.class, priority = 8)
+    public void validpassword(String username) throws InterruptedException {
+        loginPage.changeMaildIdClick();
+        loginPage.Adminlogin(username);
+        loginPage.loginButtonClick();
+       /* loginPage.adminPassword(password);
+        loginPage.confirmAndClick();*/
+    }
+
+    @Test(dataProvider = "excelDataPassword", dataProviderClass = ExcelUtils.class, priority = 9)
+    public void enterPassword(String password){
         loginPage.adminPassword(password);
         loginPage.confirmAndClick();
     }
+
 
     @AfterClass
     public void teardown() {

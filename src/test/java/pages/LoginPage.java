@@ -51,6 +51,9 @@ String country= Arrays.toString(ExcelUtils.provideDataCountryName());
     @FindBy(xpath="//div[text()='email/password value is incorrect']")
     private WebElement errorMsgPassword;
 
+
+    @FindBy(xpath="//p[text()='Change']")
+    private WebElement changeMailId;
     public LoginPage(WebDriver driver) throws IOException {
         super(driver);
         this.wait = new WaitUtil(driver, Duration.ofSeconds(5), Duration.ofSeconds(2));
@@ -216,5 +219,9 @@ usernameField.clear();
 
     public boolean IsRatesDashboardScreenDisplayed() {
         return logoutbutton.isDisplayed();
+    }
+
+    public void changeMaildIdClick(){
+        changeMailId.click();
     }
 }
