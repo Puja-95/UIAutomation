@@ -25,7 +25,7 @@ public class securityTest {
 
         try {
             // Execute Selenium test
-            driver.get("http://demo.testfire.net");
+            driver.get("https://dt-admin-pre-prod.ldsvcplatform.com/en/login");
 
             ZAPIntegration.startSecurityScan(zapApi, "https://dt-admin-pre-prod.ldsvcplatform.com/en/login");
           //  String status = zapApi.ascan.status(scanId);

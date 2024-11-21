@@ -12,7 +12,10 @@ public class ZAPIntegration {
     private static final int ZAP_PORT = 8080;
     private static final String ZAP_API_KEY = ""; // Optional, if ZAP requires an API key
 
+    public WebDriver driver;
     public static WebDriver setupZapProxy() {
+        String userDirectory = System.getProperty("user.dir");
+        System.setProperty("webdriver.chrome.driver", userDirectory+"/src/chromedriver.exe");
         Proxy zapProxy = new Proxy();
         zapProxy.setHttpProxy(ZAP_HOST + ":" + ZAP_PORT);
         ChromeOptions options = new ChromeOptions();
